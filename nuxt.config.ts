@@ -1,5 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  runtimeConfig: {
+    public: {},
+    apiSecret: {
+      FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
+    },
+  },
   ssr: false,
   app: {
     head: {
@@ -11,33 +17,5 @@ export default defineNuxtConfig({
       ],
     },
   },
-  modules: [
-    "@nuxtjs/tailwindcss",
-    [
-      "@nuxtjs/firebase",
-      {
-        config: {
-          apiKey: "AIzaSyCxAADjbPDuylxfrZgMsBtJBX2R1Zx_ThE",
-          authDomain: "nuxt3-blog-app.firebaseapp.com",
-          projectId: "nuxt3-blog-app",
-          storageBucket: "nuxt3-blog-app.appspot.com",
-          messagingSenderId: "149666269247",
-          appId: "1:149666269247:web:7c98427859d06807e3508a",
-          measurementId: "G-686S00TNZX",
-        },
-        services: {
-          auth: {
-            persistence: "local", // default
-            initialize: {
-              onAuthStateChangedAction: "onAuthStateChangedAction",
-              subscribeManually: false,
-            },
-            ssr: false, // default
-          },
-          firestore: true,
-          storage: true,
-        },
-      },
-    ],
-  ],
+  modules: ["@nuxtjs/tailwindcss"],
 });
