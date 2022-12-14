@@ -33,6 +33,16 @@
 
               <li>
                 <NuxtLink
+                  to="/about"
+                  class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                  aria-current="page"
+                  exact-active-class="text-white"
+                  >About</NuxtLink
+                >
+              </li>
+
+              <li v-if="!state.user">
+                <NuxtLink
                   to="/auth/login"
                   class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                   aria-current="page"
@@ -40,7 +50,8 @@
                   >Login</NuxtLink
                 >
               </li>
-              <li>
+
+              <li v-if="!state.user">
                 <NuxtLink
                   to="/auth/register"
                   class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
@@ -49,14 +60,14 @@
                   >Register</NuxtLink
                 >
               </li>
-              <li>
-                <NuxtLink
-                  to="/about"
+
+              <li v-if="state.user">
+                <button
+                  @click="handleLogout"
                   class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                  aria-current="page"
-                  exact-active-class="text-white"
-                  >About</NuxtLink
                 >
+                  Log Out
+                </button>
               </li>
             </ul>
           </div>
@@ -106,15 +117,29 @@
   </div>
 </template>
 
-<script>
-export default {
-  data: () => ({
-    toggle: false,
-  }),
+<script setup>
+import AuthServices from "@/firebase/services/auth";
+const { $auth } = useNuxtApp();
 
-  methods: {},
+const authServices = new AuthServices($auth);
+
+const state = reactive({
+  user: null,
+});
+
+onMounted(() => {
+  authServices.onAuthStateChanged((user) => {
+    state.user = user;
+  });
+});
+
+const handleLogout = async () => {
+  try {
+    await authServices.logout();
+  } catch (error) {
+    console.log("handleLogout failed ==> ", error);
+  }
 };
 </script>
 
 <style scoped></style>
-vb

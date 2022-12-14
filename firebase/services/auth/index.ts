@@ -11,7 +11,7 @@ import {
   NextOrObserver,
   User,
 } from "firebase/auth";
-import UserServices from "@/firebase/services/user";
+import UserServices from "~~/firebase/services/user";
 import { Timestamp } from "firebase/firestore";
 class AuthServices {
   auth: any;
@@ -28,15 +28,11 @@ class AuthServices {
   }
 
   async register(email: string, password: string) {
-    try {
-      const res = await createUserWithEmailAndPassword(this.auth, email, password);
-      await sendEmailVerification(res.user)
-        .then((res) => console.log("test"))
-        .catch((e) => console.log(e));
-      return res;
-    } catch (error) {
-      console.error("register failed ==> ", error);
-    }
+    return await createUserWithEmailAndPassword(this.auth, email, password);
+  }
+
+  sendVerification(user: User) {
+    return sendEmailVerification(user);
   }
 
   loginWithEmail(email: string, password: string) {
