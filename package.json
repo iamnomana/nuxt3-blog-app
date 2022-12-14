@@ -11,5 +11,8 @@
     "@nuxtjs/tailwindcss": "^6.1.3",
     "nuxt": "3.0.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@nuxtjs/firebase": "^8.2.2",
+    "firebase": "^9.15.0"
+  }
 }
