@@ -7,7 +7,7 @@
       <div class="bg-stone-900 h-full opacity-70 absolute top-0 w-full left-0"></div>
 
       <div class="text-center mx-auto relative">
-        <h1 class="font-bold text-8xl text-white">DIV BLOGS</h1>
+        <h1 class="font-bold md:text-8xl sm:text-lg text-white">DIV BLOGS</h1>
         <span class="self-center text-slate-50">
           Animi perferendis, ullam deserunt modi inventore officia doloribus omnis repellendus
           ducimus!</span
