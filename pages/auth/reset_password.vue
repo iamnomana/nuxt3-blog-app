@@ -1,13 +1,9 @@
 <template>
-    <div>
-
-    </div>
+  <div>
+    <h1>Reset Password</h1>
+  </div>
 </template>
 
-<script setup>
+<script setup></script>
 
-</script>
-
-<style  scoped>
-
-</style>
+<style scoped></style>
